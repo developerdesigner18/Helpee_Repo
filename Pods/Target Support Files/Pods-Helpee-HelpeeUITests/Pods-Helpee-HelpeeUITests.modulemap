@@ -1,0 +1,6 @@
+framework module Pods_Helpee_HelpeeUITests {
+  umbrella header "Pods-Helpee-HelpeeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
