@@ -27,19 +27,20 @@ struct DeviceType {
     static let IS_IPHONE_XR         = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 1792.0
 }
 
-let placeHolderImage = "profile_Placeholder"
+let BASE_URL = "http://64.227.24.156/api/"
 
-let BASE_URL = "http://khalafp.imakeawesomethings.com/Exec/"
-
-let REGISTER = "Exec_Registration.php"
-let LOGIN = "Exec_Login.php"
-let UPDATE_PROFILE = "Exec_UpdateProfile.php"
-let FORGOT_PASSWORD = "Exec_ForgotPassword.php"
-let RENT_LIST = "Exec_RentalOwner.php"
-let RENT_DESC = "Exec_RentalOwner.php"
-let FINANCIAL = "Exec_Financials.php"
-let ADD_PROPERTY = "Exec_Property.php"
-let ADD_NOTE = "Exec_Notes.php"
-let RENT_DETAILS = "Exec_Rentdetails.php"
-
-
+let REGISTER = "register"
+let LOGIN = "login"
+let SOCIAL_LOGIN = "sociallogin"
+let LOGOUT = "logout"
+let DELETE_ACC = "deleteacc"
+let SHOW_DATA = "showdata"
+let UPDATE_DATA = "updatedata"
+let GET_LOCATION = "getlocation"
+let VERIFY_CODE = "verifycode"
+let CREATE_ALERT = "createalert"
+let GET_INCEDENTS = "getincidents"
+let SAVE_TOKEN = "savetoken"
+let LANGUAGE = "language"
+let LAT_LONG = "callback"
+let GET_EMERGENCY = "getnumbers"

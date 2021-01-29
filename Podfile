@@ -6,6 +6,7 @@ target 'Helpee' do
   use_frameworks!
 
   # Pods for Helpee
+  pod 'SVProgressHUD'
   pod 'XLPagerTabStrip', :git => 'https://github.com/xmartlabs/XLPagerTabStrip.git'
   pod 'AnimatedField', :git => 'https://github.com/alberdev/AnimatedField.git'
   pod 'SDWebImage'
@@ -19,6 +20,7 @@ target 'Helpee' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'SVPinView', :git => 'https://github.com/xornorik/SVPinView.git'
+  pod 'SainiUtils'
 
   target 'HelpeeTests' do
     inherit! :search_paths

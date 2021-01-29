@@ -7,8 +7,113 @@
 //
 
 import UIKit
-//import SVProgressHUD
+import SVProgressHUD
 
+class AppData: NSObject {
+    
+    var arrCardDetail = NSMutableArray()
+    var arrRentDetail = NSMutableArray()
+    var appLanguage = String()
+    var fcm_token = String()
+    
+    class var sharedInstance : AppData {
+        
+        struct Static {
+            static let instance : AppData = AppData()
+        }
+        return Static.instance
+    }
+    
+    func getLocalizeString(str:String) -> String {
+        let string = Bundle.main.path(forResource: UserDefaults.standard.string(forKey: "appLanguage"), ofType: "lproj")
+        let myBundle = Bundle(path: string!)
+        return (myBundle?.localizedString(forKey: str, value: "", table: nil))!
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    func isValidatePresence(string: String) -> Bool {
+        let trimmed: String = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !trimmed.isEmpty
+    }
+    
+    func isValidPhoneNumber(string: String) -> Bool {
+        let PHONE_REGEX = "^\\d{10}"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        return  phoneTest.evaluate(with: string)
+    }
+    
+    func isValidPhoneNumber1(value: String) -> Bool {
+        let PHONE_REGEX = "^((\\+)|(00))[0-9]{6,14}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result =  phoneTest.evaluate(with: value)
+        
+        return result
+    }
+    
+    func isOnlyNumber(string: String) -> Bool {
+        let PHONE_REGEX = "^[0-9]*"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        return  phoneTest.evaluate(with: string)
+    }
+    
+    func isValidPhoneNumberWithCode(string: String) -> Bool {
+        let PHONE_REGEX = "^\\+?91?\\s*\\(?-*\\.*(\\d{3})\\)?\\.*-*\\s*(\\d{3})\\.*-*\\s*(\\d{4})$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        return  phoneTest.evaluate(with: string)
+    }
+    
+    func showAlert(title: String, message: String, viewController : UIViewController)->Void {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let action1 = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { (dd) -> Void in
+        }
+        alert.addAction(action1)
+        viewController.present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK:-
+    
+    func showLoader() {
+        SVProgressHUD.show()
+        SVProgressHUD.setDefaultMaskType(.black)
+    }
+    
+    func dismissLoader() {
+        if(SVProgressHUD.isVisible()) {
+            SVProgressHUD.dismiss()
+        }
+    }
+
+    
+}
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+    func setRightPaddingPoints(_ amount:CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.rightView = paddingView
+        self.rightViewMode = .always
+    }
+}
+
+extension String {
+    func localized(_ lang:String) ->String {
+        
+        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+    }
+}
 extension UITextField {
     
     enum PaddingSide {
@@ -142,91 +247,4 @@ extension UIView {
         }
     }
     
-}
-
-class AppData: NSObject {
-    
-    var arrCardDetail = NSMutableArray()
-    var arrRentDetail = NSMutableArray()
-    class var sharedInstance : AppData {
-        
-        struct Static {
-            static let instance : AppData = AppData()
-        }
-        return Static.instance
-    }
-    
-    func isValidEmail(testStr:String) -> Bool {
-        
-        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
-    
-    func isValidatePresence(string: String) -> Bool {
-        let trimmed: String = string.trimmingCharacters(in: .whitespacesAndNewlines)
-        return !trimmed.isEmpty
-    }
-    
-    func isValidPhoneNumber(string: String) -> Bool {
-        let PHONE_REGEX = "^\\d{10}"
-        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        return  phoneTest.evaluate(with: string)
-    }
-    
-    func isValidPhoneNumber1(value: String) -> Bool {
-        let PHONE_REGEX = "^((\\+)|(00))[0-9]{6,14}$"
-        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        let result =  phoneTest.evaluate(with: value)
-        
-        return result
-    }
-    
-    func isOnlyNumber(string: String) -> Bool {
-        let PHONE_REGEX = "^[0-9]*"
-        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        return  phoneTest.evaluate(with: string)
-    }
-    
-    func isValidPhoneNumberWithCode(string: String) -> Bool {
-        let PHONE_REGEX = "^\\+?91?\\s*\\(?-*\\.*(\\d{3})\\)?\\.*-*\\s*(\\d{3})\\.*-*\\s*(\\d{4})$"
-        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        return  phoneTest.evaluate(with: string)
-    }
-    
-    func showAlert(title: String, message: String, viewController : UIViewController)->Void {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let action1 = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { (dd) -> Void in
-        }
-        alert.addAction(action1)
-        viewController.present(alert, animated: true, completion: nil)
-    }
-    
-    //MARK:-
-    
-    /*func showLoader() {
-        SVProgressHUD.show()
-        SVProgressHUD.setDefaultMaskType(.black)
-    }
-    
-    func dismissLoader() {
-        if(SVProgressHUD.isVisible()) {
-            SVProgressHUD.dismiss()
-        }
-    }*/
-    
-}
-extension UITextField {
-    func setLeftPaddingPoints(_ amount:CGFloat){
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-    }
-    func setRightPaddingPoints(_ amount:CGFloat) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
-        self.rightView = paddingView
-        self.rightViewMode = .always
-    }
 }

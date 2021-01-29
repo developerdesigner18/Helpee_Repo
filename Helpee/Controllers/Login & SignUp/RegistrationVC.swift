@@ -18,6 +18,9 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     @IBOutlet weak var txtLocation: AnimatedField!
     @IBOutlet weak var btnEmail: UIButton!
     @IBOutlet weak var btnPhoneNo: UIButton!
+    @IBOutlet weak var btnRegistration: UIButton!
+    var isValida = false
+    var type = "1"
     
     var itemInfo: IndicatorInfo = "View"
     
@@ -34,6 +37,15 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureFieldsValidation()
+        self.localization()
+    }
+    
+    //MARK:- localization string
+    func localization()
+    {
+        self.btnEmail.setTitle(AppData.sharedInstance.getLocalizeString(str: "Email"), for: .normal)
+        self.btnPhoneNo.setTitle(AppData.sharedInstance.getLocalizeString(str: "Phone Number"), for: .normal)
+        self.btnRegistration.setTitle(AppData.sharedInstance.getLocalizeString(str: "REGISTRATION"), for: .normal)
     }
     
     func configureFieldsValidation()
@@ -48,19 +60,19 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         format.alertFont = UIFont(name: "AvenirNext-Regular", size: 14)!
         
         txtFirstName.format = format
-        txtFirstName.placeholder = "Enter first name"
+        txtFirstName.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter first name")
         txtFirstName.dataSource = self
         txtFirstName.delegate = self    
         txtFirstName.tag = 0
         
         txtLastName.format = format
-        txtLastName.placeholder = "Enter last name"
+        txtLastName.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter last name")
         txtLastName.dataSource = self
         txtLastName.delegate = self
         txtLastName.tag = 1
         
         txtPass.format = format
-        txtPass.placeholder = "Enter password"
+        txtPass.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter password")
         txtPass.dataSource = self
         txtPass.delegate = self
         //txtPass.type = .password(6, 10)
@@ -69,41 +81,150 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         txtPass.tag = 2
         
         txtEmail.format = format
-        txtEmail.placeholder = "Enter email"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter email")
         txtEmail.dataSource = self
         txtEmail.delegate = self
         txtEmail.type = .email
         txtEmail.tag = 3
         
         txtLocation.format = format
-        txtLocation.placeholder = "Enter location"
+        txtLocation.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter location")
         txtLocation.dataSource = self
         txtLocation.delegate = self
         txtLocation.tag = 4
         
     }
     
+    func callRegistrationAPI()
+    {
+        AppData.sharedInstance.showLoader()
+        var params = NSDictionary()
+        if txtEmail.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
+        {
+            params = [
+                "type": "1",
+                "firstname": self.txtFirstName.text ?? "",
+                "lastname": self.txtLastName.text ?? "",
+                "password": self.txtPass.text ?? "",
+                "location": self.txtLocation.text ?? "",
+                "email": self.txtEmail.text ?? ""
+            ]
+        }
+        else{
+            params = [
+                "type": "2",
+                "firstname": self.txtFirstName.text ?? "",
+                "lastname": self.txtLastName.text ?? "",
+                "password": self.txtPass.text ?? "",
+                "location": self.txtLocation.text ?? "",
+                "mobile": self.txtEmail.text ?? ""
+            ]
+        }
+        
+        print("PARAM :=> \(params)")
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + REGISTER, param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+//                        let model = UserModel()
+//                        model.initModel(attributeDict: resp)
+//                        UserManager.shared = model
+//                        UserManager.saveUserData()
+                        if let message = res.value(forKey: "message") as? Int
+                        {
+                            print(message)
+                            
+                            if let OtpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OtpVC") as? OtpVC
+                            {
+                                OtpVC.code = (message as NSNumber).stringValue
+                                OtpVC.email = self.txtEmail.text ?? ""
+                                OtpVC.type = self.type
+                                self.navigationController?.pushViewController(OtpVC, animated: true)
+                            }
+                            else{
+                                print("not push")
+                            }
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func validation() -> Bool
+    {
+        if self.txtFirstName.text == ""
+        {
+            txtFirstName.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter first name"))
+        }
+        else if self.txtLastName.text == ""
+        {
+                txtLastName.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter last name"))
+        }
+        else if self.txtPass.text == ""
+        {
+                txtPass.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter password"))
+        }
+        else if self.txtEmail.text == ""
+        {
+            if self.txtEmail.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
+            {
+                txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter email"))
+            }
+            else{
+                txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter phone number"))
+            }
+        }
+        else if self.txtLocation.text == ""
+        {
+            txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter location"))
+        }
+        else{
+            return true
+        }
+        return false
+    }
+    
     //MARK:- btn actions
     @IBAction func btnEmail(_ sender: Any) {
+        self.type = "1"
         self.btnEmail.setImage(UIImage(named: "radio_select"), for: .normal)
         self.btnPhoneNo.setImage(UIImage(named: "radio_unselect"), for: .normal)
-        txtEmail.placeholder = "Enter email"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter email")
         txtEmail.type = .email
+        txtEmail.keyboardType = .emailAddress
     }
     
     @IBAction func btnPhoneNo(_ sender: Any) {
+        txtEmail.keyboardType = .phonePad
+        txtEmail.type = .none
+        self.type = "2"
         self.btnPhoneNo.setImage(UIImage(named: "radio_select"), for: .normal)
         self.btnEmail.setImage(UIImage(named: "radio_unselect"), for: .normal)
-        txtEmail.placeholder = "Enter phone number"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter phone number")
     }
     
     @IBAction func btnRegistration(_ sender: Any) {
-        if let OtpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OtpVC") as? OtpVC
+        if self.validation()
         {
-            navigationController?.pushViewController(OtpVC, animated: true)
+            self.callRegistrationAPI()
         }
         else{
-            print("not push")
+            
         }
     }
     
@@ -124,42 +245,45 @@ extension RegistrationVC: AnimatedFieldDelegate {
         {
             if animatedField.text == ""
             {
-                txtFirstName.showAlert("Please enter first name")
+                txtFirstName.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter first name"))
             }
         }
-        if animatedField == txtLastName
+        else if animatedField == txtLastName
         {
             if animatedField.text == ""
             {
-                txtLastName.showAlert("Please enter last name")
+                txtLastName.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter last name"))
             }
         }
-        if animatedField == txtPass
+        else if animatedField == txtPass
         {
             if animatedField.text == ""
             {
-                txtPass.showAlert("Please enter password")
+                txtPass.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter password"))
             }
         }
-        if animatedField == txtEmail
+        else if animatedField == txtEmail
         {
             if animatedField.text == ""
             {
-                if animatedField.placeholder == "Enter email"
+                if animatedField.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
                 {
-                    txtEmail.showAlert("Please enter email")
+                    txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter email"))
                 }
                 else{
-                    txtEmail.showAlert("Please enter phone number")
+                    txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter phone number"))
                 }
             }
         }
-        if animatedField == txtLocation
+        else if animatedField == txtLocation
         {
             if animatedField.text == ""
             {
-                txtLocation.showAlert("Please enter location")
+                txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter location"))
             }
+        }
+        else{
+            self.isValida = true
         }
         /*var _: CGFloat = 0
         if animatedField.frame.origin.y + animatedField.frame.size.height > scrollView.frame.height {
@@ -206,7 +330,7 @@ extension RegistrationVC: AnimatedFieldDataSource {
     
     func animatedFieldValidationError(_ animatedField: AnimatedField) -> String? {
         if animatedField == txtEmail {
-            return "Email invalid! Please check again ;)"
+            return AppData.sharedInstance.getLocalizeString(str: "Email invalid! Please check again..")
         }
         return nil
     }

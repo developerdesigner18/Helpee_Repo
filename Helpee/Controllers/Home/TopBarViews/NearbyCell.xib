@@ -18,10 +18,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-yd-FBf">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-yd-FBf" customClass="sainiCardView" customModule="SainiUtils">
                         <rect key="frame" x="15" y="10" width="290" height="115"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-4G-uQF">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-4G-uQF">
                                 <rect key="frame" x="160" y="0.0" width="130" height="115"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KIDNAPPING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tzg-Sc-436">
@@ -50,6 +50,14 @@
                                     <constraint firstItem="tzg-Sc-436" firstAttribute="leading" secondItem="AFl-4G-uQF" secondAttribute="leading" constant="10" id="qaH-u5-23D"/>
                                     <constraint firstAttribute="width" constant="130" id="wga-Oc-8Xj"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6b-3x-zaN">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="57"/>
@@ -136,6 +144,9 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
@@ -150,6 +161,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="alertImg" destination="QLg-oz-hnc" id="0JQ-ph-90T"/>
+                <outlet property="alertName" destination="tzg-Sc-436" id="F0C-px-ErE"/>
+                <outlet property="lblDateTime" destination="FAh-Id-kQe" id="tFI-YG-o8r"/>
+                <outlet property="lblLocation" destination="hTS-51-qas" id="dvK-BV-uPD"/>
                 <outlet property="vW" destination="3Pl-yd-FBf" id="WUD-Us-caA"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="108.81696428571428"/>

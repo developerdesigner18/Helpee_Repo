@@ -16,8 +16,13 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
 
     @IBOutlet weak var btnPhoneNo: UIButton!
     @IBOutlet weak var btnEmail: UIButton!
+    @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: AnimatedField!
     @IBOutlet weak var txtPass: AnimatedField!
+    var type = "1"
+    var email = ""
+    var name = ""
+    var img = ""
     
     var itemInfo: IndicatorInfo = "View"
     
@@ -33,12 +38,9 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.type = "1"
         
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        
-        // Automatically sign in the user.
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        GIDSignIn.sharedInstance().delegate = self
+        self.localization()
         
         // validation part configuration of email and password
         var format = AnimatedFieldFormat()
@@ -50,14 +52,14 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
         format.alertFont = UIFont(name: "AvenirNext-Regular", size: 14)!
         
         txtEmail.format = format
-        txtEmail.placeholder = "Enter email"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter email")
         txtEmail.dataSource = self
         txtEmail.delegate = self
         txtEmail.type = .email
         txtEmail.tag = 0
         
         txtPass.format = format
-        txtPass.placeholder = "Enter password"
+        txtPass.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter password")
         txtPass.dataSource = self
         txtPass.delegate = self
         //txtPass.type = .password(6, 10)
@@ -65,6 +67,14 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
         txtPass.showVisibleButton = true
         txtPass.tag = 1
         
+    }
+    
+    //MARK:- localization string
+    func localization()
+    {
+        self.btnEmail.setTitle(AppData.sharedInstance.getLocalizeString(str: "Email"), for: .normal)
+        self.btnPhoneNo.setTitle(AppData.sharedInstance.getLocalizeString(str: "Phone Number"), for: .normal)
+        self.btnLogin.setTitle(AppData.sharedInstance.getLocalizeString(str: "LOG IN"), for: .normal)
     }
     
     //MARK:- get Facebook Info
@@ -83,6 +93,7 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
                     {
                         if let url = data.value(forKey: "url") as? String
                         {
+                            self.img = url
                             print("URL :=> \(url)")
                         }
                     }
@@ -93,43 +104,185 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
                 }
                 if let email = resposne.value(forKey: "email") as? String
                 {
-                    self.txtEmail.text = email
+                    self.email = email
                     print("EMAIL :=> \(email)")
                 }
                 if let first_name = resposne.value(forKey: "first_name") as? String
                 {
+                    self.name = first_name
                     print("FIRST_NAME :=> \(first_name)")
                 }
                 if let last_name = resposne.value(forKey: "last_name") as? String
                 {
+                    self.name += last_name
                     print("LAST_NAME :=> \(last_name)")
                 }
-                //self.signUpWebService()
+                self.type = "3"
+                self.callSocialLoginAPI()
             }
             else{
                 print("Graph Request Failed: \(error)")
             }
         }
-        
         connection.start()
+    }
+    
+    
+    //MARK:- API CAll
+    func callSocialLoginAPI()
+    {
+        AppData.sharedInstance.showLoader()
+        let params = [
+            "type": self.type,
+            "email": self.email,
+            "name": self.name,
+            "image": self.img
+        ] as NSDictionary
+        
+        print("PARAM :=> \(params)")
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + SOCIAL_LOGIN, param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        {
+                            let model = UserModel()
+                            model.initModel(attributeDict: resp)
+                            UserManager.shared = model
+                            UserManager.saveUserData()
+                            
+                            print(resp)
+                            
+                            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
+                            UIApplication.shared.windows.first?.rootViewController = redViewController
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func callLoginAPI()
+    {
+        AppData.sharedInstance.showLoader()
+        var params = NSDictionary()
+        if txtEmail.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
+        {
+            params = [
+                "type": "1",
+                "email": self.txtEmail.text ?? "",
+                "password": self.txtPass.text ?? ""
+            ]
+        }
+        else{
+            params = [
+                "type": "2",
+                "mobile": self.txtEmail.text ?? "",
+                "password": self.txtPass.text ?? ""
+            ]
+        }
+        
+        print("PARAM :=> \(params)")
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + LOGIN, param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        {
+                            let model = UserModel()
+                            model.initModel(attributeDict: resp)
+                            UserManager.shared = model
+                            UserManager.saveUserData()
+                            
+                            print(resp)
+                            
+                            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
+                            UIApplication.shared.windows.first?.rootViewController = redViewController
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func validation() -> Bool
+    {
+        if txtEmail.text == ""
+        {
+            if txtEmail.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
+            {
+                txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter email"))
+            }
+            else{
+                txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter phone number"))
+            }
+        }
+        else if txtPass.text == ""
+        {
+            txtPass.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter password"))
+        }
+        else{
+            return true
+        }
+        return false
     }
     
     //MARK:- btn actions
     @IBAction func btnEmail(_ sender: Any) {
+        self.type = "1"
         self.btnEmail.setImage(UIImage(named: "radio_select"), for: .normal)
         self.btnPhoneNo.setImage(UIImage(named: "radio_unselect"), for: .normal)
-        txtEmail.placeholder = "Enter email"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter email")
         txtEmail.type = .email
+        txtEmail.keyboardType = .emailAddress
     }
     
     @IBAction func btnPhoneNo(_ sender: Any) {
+        txtEmail.keyboardType = .phonePad
+        self.type = "2"
         self.btnPhoneNo.setImage(UIImage(named: "radio_select"), for: .normal)
         self.btnEmail.setImage(UIImage(named: "radio_unselect"), for: .normal)
-        txtEmail.placeholder = "Enter phone number"
+        txtEmail.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter phone number")
+        txtEmail.type = .none
     }
     
     @IBAction func btnLogin(_ sender: Any) {
-        
+        if self.validation()
+        {
+            self.callLoginAPI()
+        }
     }
     
     @IBAction func btnFacebook(_ sender: Any) {
@@ -151,12 +304,19 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
     }
     
     @IBAction func btnGoogle(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        GIDSignIn.sharedInstance().delegate = self
+        
         GIDSignIn.sharedInstance().signIn()
     }
     
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
+        
     }
 
 }
@@ -172,12 +332,12 @@ extension LoginVC: AnimatedFieldDelegate {
         {
             if animatedField.text == ""
             {
-                if animatedField.placeholder == "Enter email"
+                if animatedField.placeholder == AppData.sharedInstance.getLocalizeString(str: "Enter email")
                 {
-                    txtEmail.showAlert("Please enter email")
+                    txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter email"))
                 }
                 else{
-                    txtEmail.showAlert("Please enter phone number")
+                    txtEmail.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter phone number"))
                 }
             }
         }
@@ -185,7 +345,7 @@ extension LoginVC: AnimatedFieldDelegate {
         {
             if animatedField.text == ""
             {
-                txtPass.showAlert("Please enter password")
+                txtPass.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter password"))
             }
         }
         /*var _: CGFloat = 0
@@ -233,7 +393,7 @@ extension LoginVC: AnimatedFieldDataSource {
     
     func animatedFieldValidationError(_ animatedField: AnimatedField) -> String? {
         if animatedField == txtEmail {
-            return "Email invalid! Please check again ;)"
+            return AppData.sharedInstance.getLocalizeString(str: "Email invalid! Please check again..")
         }
         return nil
     }
@@ -257,8 +417,14 @@ extension LoginVC : GIDSignInDelegate {
             print(idToken)
             print(name)
             print(email)
-            self.txtEmail.text = email
-            //self.signUpWebService()
+            
+            self.name = name ?? ""
+            self.email = email ?? ""
+            self.img = userImageURL?.absoluteString ?? ""
+            
+            
+            self.type = "4"
+            self.callSocialLoginAPI()
         }
     }
     

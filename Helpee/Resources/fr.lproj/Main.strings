@@ -1,0 +1,111 @@
+
+/* Class = "UITabBarItem"; title = "PROFILE"; ObjectID = "1P5-Dy-VIh"; */
+"1P5-Dy-VIh.title" = "PROFIL";
+
+/* Class = "UITextField"; text = "test@gmail.com"; ObjectID = "1ur-e2-GGp"; */
+"1ur-e2-GGp.text" = "test@gmail.com";
+
+/* Class = "UITextField"; text = "90***01***"; ObjectID = "2KB-tI-uMH"; */
+"2KB-tI-uMH.text" = "90 *** 01 *** ";
+
+/* Class = "UITextField"; text = "test@gmail.com"; ObjectID = "2qb-rI-qbc"; */
+"2qb-rI-qbc.text" = "test@gmail.com";
+
+/* Class = "UITabBarItem"; title = "SETTINGS"; ObjectID = "6g0-aN-ldn"; */
+"6g0-aN-ldn.title" = "RÉGLAGES";
+
+/* Class = "UILabel"; text = "Last Name"; ObjectID = "77Z-tt-2b8"; */
+"77Z-tt-2b8.text" = "Nom de famille";
+
+/* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "8ij-6O-MHS"; */
+"8ij-6O-MHS.normalTitle" = "Termes et conditions";
+
+/* Class = "UITextField"; text = "Mark"; ObjectID = "BMT-mA-PcT"; */
+"BMT-mA-PcT.text" = "marque";
+
+/* Class = "UITextField"; text = "B-10/6,ABC Circle"; ObjectID = "BRt-yh-W13"; */
+"BRt-yh-W13.text" = "B-10/6, cercle ABC";
+
+/* Class = "UIButton"; normalTitle = "RESEND OTP"; ObjectID = "BoM-IK-hm5"; */
+"BoM-IK-hm5.normalTitle" = "RENVOYER OTP";
+
+/* Class = "UILabel"; text = "Notification"; ObjectID = "Cct-ni-gEk"; */
+"Cct-ni-gEk.text" = "Notification";
+
+/* Class = "UILabel"; text = "Update Details"; ObjectID = "Cgr-pL-urS"; */
+"Cgr-pL-urS.text" = "Mettre à jour les détails";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "DiQ-gL-GRA"; */
+"DiQ-gL-GRA.text" = "Réglages";
+
+/* Class = "UILabel"; text = "First Name"; ObjectID = "Dus-LJ-Dhf"; */
+"Dus-LJ-Dhf.text" = "Prénom";
+
+/* Class = "UITextField"; text = "Gross"; ObjectID = "E5X-K2-S8F"; */
+"E5X-K2-S8F.text" = "Brute";
+
+/* Class = "UILabel"; text = "Sent to +91 9585958595"; ObjectID = "Ebi-kE-Htf"; */
+"Ebi-kE-Htf.text" = "Envoyé au +91 9585958595";
+
+/* Class = "UITextField"; text = "90***01***"; ObjectID = "EuC-TL-Zc4"; */
+"EuC-TL-Zc4.text" = "90 *** 01 *** ";
+
+/* Class = "UITextField"; text = "B-10/6,ABC Circle"; ObjectID = "H7g-jf-Wd0"; */
+"H7g-jf-Wd0.text" = "B-10/6, cercle ABC";
+
+/* Class = "UITabBarItem"; title = "HOME"; ObjectID = "I4N-xe-w9a"; */
+"I4N-xe-w9a.title" = "DOMICILE";
+
+/* Class = "UITextField"; text = "Gross"; ObjectID = "JMt-Bv-XQ5"; */
+"JMt-Bv-XQ5.text" = "Brute";
+
+/* Class = "UILabel"; text = "Last Name"; ObjectID = "KMo-3m-jaI"; */
+"KMo-3m-jaI.text" = "Nom de famille";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "Lto-8y-jtR"; */
+"Lto-8y-jtR.text" = "Mot de passe";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "NyE-oR-4oq"; */
+"NyE-oR-4oq.text" = "Emplacement";
+
+/* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "OLZ-O8-xHd"; */
+"OLZ-O8-xHd.normalTitle" = "Se déconnecter";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "POD-DN-Vnx"; */
+"POD-DN-Vnx.normalTitle" = "sauver";
+
+/* Class = "UILabel"; text = "Profile"; ObjectID = "SBF-Kd-Rf8"; */
+"SBF-Kd-Rf8.text" = "Profil";
+
+/* Class = "UILabel"; text = "Language Selection"; ObjectID = "U33-iM-0dH"; */
+"U33-iM-0dH.text" = "Sélection de la langue";
+
+/* Class = "UILabel"; text = "Email Address"; ObjectID = "VoK-rP-8uI"; */
+"VoK-rP-8uI.text" = "Adresse e-mail";
+
+/* Class = "UIButton"; normalTitle = "Delete Account"; ObjectID = "W4p-Pg-BTN"; */
+"W4p-Pg-BTN.normalTitle" = "Supprimer le compte";
+
+/* Class = "UITextField"; text = "Mark"; ObjectID = "XcJ-gk-5au"; */
+"XcJ-gk-5au.text" = "marque";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "a4J-wQ-JcE"; */
+"a4J-wQ-JcE.normalTitle" = "SOUMETTRE";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "apT-Do-88l"; */
+"apT-Do-88l.text" = "Emplacement";
+
+/* Class = "UILabel"; text = "Update Details"; ObjectID = "jHf-5L-xMP"; */
+"jHf-5L-xMP.text" = "Mettre à jour les détails";
+
+/* Class = "UILabel"; text = "Verification Code"; ObjectID = "lsW-pm-dVo"; */
+"lsW-pm-dVo.text" = "Code de vérification";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "ykf-1l-XOs"; */
+"ykf-1l-XOs.text" = "Mot de passe";
+
+/* Class = "UILabel"; text = "First Name"; ObjectID = "yxe-NJ-rCa"; */
+"yxe-NJ-rCa.text" = "Prénom";
+
+/* Class = "UILabel"; text = "Email Address"; ObjectID = "zG9-db-pkg"; */
+"zG9-db-pkg.text" = "Adresse e-mail";

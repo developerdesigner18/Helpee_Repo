@@ -1,0 +1,72 @@
+/* 
+  Localizable.strings
+  Helpee
+
+  Created by iMac on 05/01/21.
+  
+*/
+"Email" = "Email";
+"Phone Number" = "Téléphone";
+"LOG IN" = "SE CONNECTER";
+"LOGIN" = "CONNEXION";
+"REGISTRATION" = "INSCRIPTION";
+"Enter email" = "Saisir l'email";
+"Enter phone number" = "Saisir le numéro de téléphone";
+"Enter password" = "Saisir le mot de passe";
+"Please enter email" = "Email";
+"Please enter password" = "Mot de passe";
+"Enter first name" = "Saisir votre prénom";
+"Enter last name" = "Saisir votre nom de famille";
+"Enter password" = "Saisir le mot de passe";
+"Enter email" = "Entrez l'email";
+"Enter location" = "Adresse";
+"Email invalid! Please check again.." = "Email invalide! Veuillez réessayer.";
+"Please enter phone number" = "Veuillez saisir le numéro de téléphone";
+"Please enter first name" = "Veuillez saisir le prénom";
+"Please enter last name" = "Veuillez saisir votre nom";
+"Please enter location" = "Veuillez saisir votre adresse";
+"Emergency" = "Urgences";
+"Report Alert" = "Signaler une alerte";
+"Nearby Alerts" = "Alertes à proximité";
+"SEXUAL ASSAULT" = "VIOL";
+"ACCIDENT" = "ACCIDENT";
+"PHYSICAL ASSAULT" = "AGRESSION";
+"KIDNAPPING" = "ENLÈVEMENT";
+"Police" = "Police";
+"Rescue" = "Pompiers";
+"Choose Language" = "Choisissez la langue";
+"English" = "Anglais";
+"French" = "français";
+"PROFILE" = "PROFIL";
+"test@gmail.com" = "test@gmail.com";
+"90***01***" = "90 *** 01 *** ";
+"SETTINGS" = "RÉGLAGES";
+"Last Name" = "Nom";
+"Terms and Conditions" = "Conditions générales";
+"Mark" = "marque";
+"B-10/6,ABC Circle" = "B-10/6, cercle ABC";
+"RESEND OTP" = "RENVOYER CODE";
+"Notification" = "Notification";
+"Update Details" = "Mettre à jour le compte";
+"Settings" = "Réglages";
+"First Name" = "Prénom";
+"Gross" = "Brute";
+"Sent to +91 9585958595" = "Envoyé au +91 9585958595";
+"HOME" = "ACCUEIL";
+"Password" = "Mot de passe";
+"Location" = "Adresse";
+"Logout" = "Se déconnecter";
+"Save" = "sauver";
+"Profile" = "Profil";
+"Language Selection" = "Langue";
+"Email Address" = "E-mail";
+"Mobile Number" = "Numéro de portable";
+"Delete Account" = "Supprimer le compte";
+"Mark" = "marque";
+"SUBMIT" = "SOUMETTRE";
+"Location" = "Adresse";
+"Update Details" = "Mettre à jour le compte";
+"Verification Code" = "Code de vérification";
+"Password" = "Mot de passe";
+"First Name" = "Prénom";
+"Email Address" = "E-mail";

@@ -122,10 +122,12 @@ PODS:
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.11)
   - ReachabilitySwift (3)
+  - SainiUtils (0.2.1)
   - SDWebImage (5.10.0):
     - SDWebImage/Core (= 5.10.0)
   - SDWebImage/Core (5.10.0)
   - SVPinView (1.0.11)
+  - SVProgressHUD (2.2.5)
   - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
@@ -139,8 +141,10 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManagerSwift (from `https://github.com/hackiftekhar/IQKeyboardManager.git`)
   - ReachabilitySwift (~> 3)
+  - SainiUtils
   - SDWebImage
   - SVPinView (from `https://github.com/xornorik/SVPinView.git`)
+  - SVProgressHUD
   - XLPagerTabStrip (from `https://github.com/xmartlabs/XLPagerTabStrip.git`)
 
 SPEC REPOS:
@@ -169,7 +173,9 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - ReachabilitySwift
+    - SainiUtils
     - SDWebImage
+    - SVProgressHUD
 
 EXTERNAL SOURCES:
   AnimatedField:
@@ -222,10 +228,12 @@ SPEC CHECKSUMS:
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  SainiUtils: 0fe398d1030ebbd6edf7f51e5e3ebfd19a48ef27
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   XLPagerTabStrip: 6af5fe7b41c21f371860df6bac2ddf12818c5103
 
-PODFILE CHECKSUM: 98ca5d7b81deb189e502068ff9debb98946e96aa
+PODFILE CHECKSUM: 8777f469057e5223a31f3b55c9ae4b9f78fb5e99
 
 COCOAPODS: 1.10.0

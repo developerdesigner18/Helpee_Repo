@@ -31,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.205855543998-ahc1fdkb857bklamtl9ujlqhto83749j</string>
+				<string>com.googleusercontent.apps.205855543998-gpqb9osr8f0n24j9dqhat7ko2ivi1vnt</string>
 			</array>
 		</dict>
 		<dict>
@@ -49,6 +49,10 @@
 	<string>224332829264246</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Helpee needs your location to find nearby rides.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Helpee needs your location to find nearby rides.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -70,6 +74,12 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

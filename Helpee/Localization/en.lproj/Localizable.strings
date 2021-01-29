@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  Helpee
+
+  Created by iMac on 05/01/21.
+  
+*/
+"Email" = "Email";
+"Phone Number" = "Phone Number";
+"LOG IN" = "LOG IN";
+"LOGIN" = "LOGIN";
+"REGISTRATION" = "REGISTRATION";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter password" = "Enter password";
+"Please enter email" = "Please enter email";
+"Please enter password" = "Please enter password";
+"Enter first name" = "Enter first name";
+"Enter last name" = "Enter last name";
+"Enter password" = "Enter password";
+"Enter email" = "Enter email";
+"Enter location" = "Enter location";
+"Email invalid! Please check again.." = "Email invalid! Please check again..";
+"Please enter phone number" = "Please enter phone number";
+"Please enter first name" = "Please enter first name";
+"Please enter last name" = "Please enter last name";
+"Please enter location" = "Please enter location";
+"Emergency" = "Emergency";
+"Report Alert" = "Report Alert";
+"Nearby Alerts" = "Nearby Alerts";
+"SEXUAL ASSAULT" = "SEXUAL ASSAULT";
+"ACCIDENT" = "ACCIDENT";
+"PHYSICAL ASSAULT" = "PHYSICAL ASSAULT";
+"KIDNAPPING" = "KIDNAPPING";
+"Police" = "Police";
+"Rescue" = "Rescue";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";

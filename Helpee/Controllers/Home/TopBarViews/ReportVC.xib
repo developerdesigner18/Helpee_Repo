@@ -10,6 +10,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportVC" customModule="Helpee" customModuleProvider="target">
             <connections>
+                <outlet property="alertView" destination="QsU-pO-gvB" id="zPP-NE-EMY"/>
+                <outlet property="lblAccident" destination="pUi-S0-aT3" id="pO4-4Y-6te"/>
+                <outlet property="lblKidnapping" destination="NaI-kA-Hu7" id="SzW-Hm-Qha"/>
+                <outlet property="lblLocation" destination="i6m-Bf-0wH" id="e5k-Fg-NAS"/>
+                <outlet property="lblPhysical" destination="1Ca-hD-yPS" id="OQ7-v9-YVZ"/>
+                <outlet property="lblSexual" destination="VZQ-YL-TSg" id="NbC-mK-8mX"/>
+                <outlet property="titleLbl" destination="9Pv-7D-2r7" id="EIl-bV-2rj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -164,7 +171,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWM-I2-hBZ">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="250"/>
                             <connections>
-                                <action selector="btnKidnapping:" destination="-1" eventType="touchUpInside" id="0FD-9Z-Rsd"/>
+                                <action selector="btnAssult:" destination="-1" eventType="touchUpInside" id="pRD-lX-aKa"/>
                             </connections>
                         </button>
                     </subviews>
@@ -220,7 +227,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ob-Tk-Ypv">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="250"/>
                             <connections>
-                                <action selector="btnAssult:" destination="-1" eventType="touchUpInside" id="ekF-br-qOP"/>
+                                <action selector="btnKidnapping:" destination="-1" eventType="touchUpInside" id="JeF-sj-9Te"/>
                             </connections>
                         </button>
                     </subviews>
@@ -242,6 +249,81 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QsU-pO-gvB">
+                    <rect key="frame" x="37.5" y="198.5" width="300" height="270"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ASSULT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9Pv-7D-2r7">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.79215686269999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i6m-Bf-0wH">
+                            <rect key="frame" x="10" y="115" width="280" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-hu-tbN">
+                            <rect key="frame" x="35" y="210" width="100" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.61960784313725492" green="0.62352941176470589" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="7"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="btnCancel:" destination="-1" eventType="touchUpInside" id="HsG-Zd-Eb8"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdd-Vi-XNC">
+                            <rect key="frame" x="165" y="210" width="100" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.0" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
+                            <state key="normal" title="Alert">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="7"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="btnAlert:" destination="-1" eventType="touchUpInside" id="A4v-lB-8x6"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="270" id="VbK-if-P1b"/>
+                        <constraint firstAttribute="width" constant="300" id="p68-z0-dNb"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
@@ -253,9 +335,11 @@
                 <constraint firstItem="a8Y-zD-B6V" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="NwE-Uj-fU3"/>
                 <constraint firstItem="LV1-Rt-7F9" firstAttribute="leading" secondItem="a8Y-zD-B6V" secondAttribute="trailing" constant="15" id="OVv-lT-Bz0"/>
                 <constraint firstItem="pE5-k3-it8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Qb9-OH-ZQb"/>
+                <constraint firstItem="QsU-pO-gvB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cBe-XI-hvi"/>
                 <constraint firstItem="W5r-fR-QU4" firstAttribute="leading" secondItem="pE5-k3-it8" secondAttribute="trailing" constant="15" id="drw-kj-BfS"/>
                 <constraint firstItem="pE5-k3-it8" firstAttribute="height" secondItem="a8Y-zD-B6V" secondAttribute="height" id="hOG-u2-Mi0"/>
                 <constraint firstItem="LV1-Rt-7F9" firstAttribute="width" secondItem="a8Y-zD-B6V" secondAttribute="width" id="lAx-UV-YXt"/>
+                <constraint firstItem="QsU-pO-gvB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mBk-CO-wup"/>
                 <constraint firstItem="LV1-Rt-7F9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="55" id="nAX-5g-foK"/>
                 <constraint firstItem="LV1-Rt-7F9" firstAttribute="height" secondItem="a8Y-zD-B6V" secondAttribute="height" id="nV5-Ca-oBa"/>
                 <constraint firstItem="pE5-k3-it8" firstAttribute="top" secondItem="a8Y-zD-B6V" secondAttribute="bottom" constant="55" id="p1y-g7-Mgb"/>

@@ -102,11 +102,13 @@ const KLCPopupLayout KLCPopupLayoutCenter = { KLCPopupHorizontalLayoutCenter, KL
     self.dismissType = KLCPopupDismissTypeShrinkOut;
     self.maskType = KLCPopupMaskTypeDimmed;
     self.dimmedMaskAlpha = 0.5;
-    
     _isBeingShown = NO;
     _isShowing = NO;
     _isBeingDismissed = NO;
     
+    //(participants left/total participants) * 100
+
+      
     _backgroundView = [[UIView alloc] init];
     _backgroundView.backgroundColor = [UIColor clearColor];
     _backgroundView.userInteractionEnabled = NO;

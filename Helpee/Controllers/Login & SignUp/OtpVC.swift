@@ -11,6 +11,9 @@ import SVPinView
 class OtpVC: UIViewController {
 
     @IBOutlet weak var pinView: SVPinView!
+    var code = String()
+    var email = String()
+    var type = String()
     
     //MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -59,21 +62,73 @@ class OtpVC: UIViewController {
         }
     }
     
+    //MARK:- Call API
+    func callVerifyOTPAPI()
+    {
+        AppData.sharedInstance.showLoader()
+        var params = NSDictionary()
+        if self.type == "1"
+        {
+            params = [
+                "type": self.type,
+                "email": self.email,
+                "code": self.pinView.getPin()
+            ]
+        }
+        else{
+            params = [
+                "type": self.type,
+                "mobile": self.email,
+                "code": self.pinView.getPin()
+            ]
+        }
+        
+        print("PARAM :=> \(params)")
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + VERIFY_CODE, param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        {
+                            print(resp)
+                            
+                            let model = UserModel()
+                            model.initModel(attributeDict: resp)
+                            UserManager.shared = model
+                            UserManager.saveUserData()
+                            
+                            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
+                            UIApplication.shared.windows.first?.rootViewController = redViewController
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
     //MARK:- btn actions
     @IBAction func btnResend(_ sender: Any) {
         
-        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
-        UIApplication.shared.windows.first?.rootViewController = redViewController
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
-
-        
-        /*let RAMAnimatedTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
-        self.navigationController?.pushViewController(RAMAnimatedTabBarController, animated: true)*/
     }
     
     @IBAction func btnSubmit(_ sender: Any) {
-        
+        self.callVerifyOTPAPI()
     }
     
     @objc func dismissKeyboard() {

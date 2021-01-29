@@ -14,6 +14,18 @@ class ViewController: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserManager.getUserData()
+        
+        if let token = UserManager.shared.userid as? String {
+            if token != "" {
+                let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController") as! RAMAnimatedTabBarController
+                UIApplication.shared.windows.first?.rootViewController = redViewController
+                UIApplication.shared.windows.first?.makeKeyAndVisible()
+            }
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -22,7 +34,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarBackgroundColor = .white
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.buttonBarItemFont = UIFont(name: "AvenirNext-Medium", size: 16)!
-        settings.style.selectedBarHeight = 0.5
+        settings.style.selectedBarHeight = 0.52
         settings.style.buttonBarMinimumLineSpacing = 0
         settings.style.buttonBarItemTitleColor = .black
         settings.style.buttonBarItemsShouldFillAvailableWidth = true
@@ -38,8 +50,10 @@ class ViewController: ButtonBarPagerTabStripViewController {
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let child_1 = LoginVC(itemInfo: "LOGIN")//LoginVC(itemInfo: IndicatorInfo(title: "LOGIN", image: UIImage(named: "home")))
-        let child_2 = RegistrationVC(itemInfo: "REGISTRATION")
+        //
+        
+        let child_1 = LoginVC(itemInfo: IndicatorInfo(title: AppData.sharedInstance.getLocalizeString(str: "LOGIN")))
+        let child_2 = RegistrationVC(itemInfo: IndicatorInfo(title: AppData.sharedInstance.getLocalizeString(str: "REGISTRATION")))
         return [child_1, child_2]
     }
 }

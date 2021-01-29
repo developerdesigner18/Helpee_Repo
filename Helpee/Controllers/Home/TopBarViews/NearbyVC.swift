@@ -10,6 +10,7 @@ import XLPagerTabStrip
 
 class NearbyVC: UIViewController,IndicatorInfoProvider {
 
+    var arrNearByAlerts = NSMutableArray()
     @IBOutlet weak var tblView: UITableView!
     var itemInfo: IndicatorInfo = "View"
     
@@ -30,6 +31,50 @@ class NearbyVC: UIViewController,IndicatorInfoProvider {
         self.tblView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.callNearByAlertsAPI()
+    }
+    
+    //MARK:- API Call
+    func callNearByAlertsAPI()
+    {
+        AppData.sharedInstance.showLoader()
+        
+        let params = ["userid":UserManager.shared.userid] as NSDictionary
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + GET_INCEDENTS  , param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let message = res.value(forKey: "message") as? NSArray
+                        {
+                            self.arrNearByAlerts = NSMutableArray()
+                            for dict in message
+                            {
+                                let model = nearByAlertModel(dict: dict as! NSDictionary)
+                                self.arrNearByAlerts.add(model)
+                            }
+                            self.tblView.reloadData()
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
@@ -38,11 +83,16 @@ class NearbyVC: UIViewController,IndicatorInfoProvider {
 extension NearbyVC : UITableViewDataSource, UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.arrNearByAlerts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblView.dequeueReusableCell(withIdentifier: "NearbyCell", for: indexPath) as! NearbyCell
+        let model = self.arrNearByAlerts[indexPath.row] as! nearByAlertModel
+        cell.lblDateTime.text = model.created_at
+        cell.lblLocation.text = model.location
+        cell.alertName.text = model.alert_name
+        cell.alertImg.image = UIImage(named: model.alert_img)
         return cell
     }
     

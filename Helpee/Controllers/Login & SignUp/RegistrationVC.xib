@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="btnEmail" destination="Nj1-fg-xD1" id="mNc-gW-EX5"/>
                 <outlet property="btnPhoneNo" destination="fgY-Fa-wKO" id="ysp-lp-RQs"/>
+                <outlet property="btnRegistration" destination="oA2-1O-MKD" id="Qgk-fr-K5H"/>
                 <outlet property="txtEmail" destination="nC6-ed-r4W" id="MDS-Wn-niL"/>
                 <outlet property="txtFirstName" destination="tya-Mz-AAk" id="UFI-3B-bLd"/>
                 <outlet property="txtLastName" destination="v4W-OI-GF0" id="xOm-C1-eAL"/>

@@ -28,8 +28,7 @@ class APIUtilities: NSObject {
             return;
         }
         
-        var authToken = String()
-        let headers = ["Accept":"application/json","Authorization":authToken]
+        let headers = ["Accept":"application/json","Authorization":UserManager.shared.token]
         
         Alamofire.request(url, method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
             //            .responseString(completionHandler: { (responsestr) in
@@ -61,11 +60,35 @@ class APIUtilities: NSObject {
             return;
         }
         
-        Alamofire.request(url, method: HTTPMethod.post, parameters: param as? Parameters, encoding: URLEncoding.default, headers: nil)
+        print("Bearer Token :=>",UserManager.shared.token)
+        
+        let headers = ["Accept":"application/json","Authorization":UserManager.shared.token]
+        
+        Alamofire.request(url, method: HTTPMethod.post, parameters: param as? Parameters, encoding: URLEncoding.default, headers: headers)
             .responseJSON { response in
                 
                 if let JSON = response.result.value {
-                    completionHandler(JSON as AnyObject?, nil)
+                    if let message = (JSON as! NSDictionary).value(forKey: "message") as? String
+                    {
+                        if message == "Token is Expired"
+                        {
+                            UserManager.removeModel()
+                            UserManager.getUserData()
+                            UserManager.shared.userid = ""
+                            UserManager.shared.token = ""
+                            print(UserManager.shared.userid)
+                            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let redViewController = mainStoryBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                            UIApplication.shared.windows.first?.rootViewController = redViewController
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                        else{
+                            completionHandler(JSON as AnyObject?, nil)
+                        }
+                    }
+                    else{
+                        completionHandler(JSON as AnyObject?, nil)
+                    }
                 }
                 else {
                     print(response.result.error ?? "")
