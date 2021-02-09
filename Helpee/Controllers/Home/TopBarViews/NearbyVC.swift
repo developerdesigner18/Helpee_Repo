@@ -10,6 +10,7 @@ import XLPagerTabStrip
 
 class NearbyVC: UIViewController,IndicatorInfoProvider {
 
+    @IBOutlet weak var noDataLbl: UILabel!
     var arrNearByAlerts = NSMutableArray()
     @IBOutlet weak var tblView: UITableView!
     var itemInfo: IndicatorInfo = "View"
@@ -52,7 +53,7 @@ class NearbyVC: UIViewController,IndicatorInfoProvider {
                 {
                     if success == 1
                     {
-                        if let message = res.value(forKey: "message") as? NSArray
+                        if let message = res.value(forKey: "alerts") as? NSArray
                         {
                             self.arrNearByAlerts = NSMutableArray()
                             for dict in message
@@ -60,10 +61,12 @@ class NearbyVC: UIViewController,IndicatorInfoProvider {
                                 let model = nearByAlertModel(dict: dict as! NSDictionary)
                                 self.arrNearByAlerts.add(model)
                             }
+                            self.noDataLbl.isHidden = true
                             self.tblView.reloadData()
                         }
                     }
                     else{
+                        self.noDataLbl.isHidden = false
                         if let message = res.value(forKey: "message") as? String
                         {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)

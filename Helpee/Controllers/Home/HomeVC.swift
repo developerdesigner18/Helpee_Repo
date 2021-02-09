@@ -19,10 +19,9 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.callLanguageAPI()
-        
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -33,37 +32,6 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
         Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(callLatLong), userInfo: nil, repeats: true)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tokenAPICall(notification:)), name: Notification.Name("tokenAPICall"), object: nil)
-    }
-    
-    func callLanguageAPI()
-    {
-        AppData.sharedInstance.showLoader()
-        
-        let params = ["userid":UserManager.shared.userid,
-                      "language":AppData.sharedInstance.appLanguage] as NSDictionary
-        
-        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + LANGUAGE  , param: params) { (response, error) in
-            AppData.sharedInstance.dismissLoader()
-            print(response ?? "")
-            
-            if let res = response as? NSDictionary
-            {
-                if let success = res.value(forKey: "success") as? Int
-                {
-                    if success == 1
-                    {
-                        print("Done Language :=> ",res)
-                    }
-                    else{
-                        if let message = res.value(forKey: "message") as? String
-                        {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
-                        }
-                    }
-                }
-            }
-            
-        }
     }
     
     // MARK: - Location Manager Delegate
@@ -122,7 +90,7 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
     
     func callSaveTokenAPI()
     {
-        AppData.sharedInstance.showLoader()
+        //AppData.sharedInstance.showLoader()
         
         let params = ["userid":UserManager.shared.userid,
                       "devicetoken":AppData.sharedInstance.fcm_token] as NSDictionary
@@ -178,6 +146,10 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
             oldCell?.label.backgroundColor = .white
             newCell?.label.backgroundColor = UIColor(red: 241/255, green: 193/255, blue: 14/255, alpha: 1.0)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.moveToViewController(at: 0)
     }
     
     // MARK: - PagerTabStripDataSource

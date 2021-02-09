@@ -11,6 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportVC" customModule="Helpee" customModuleProvider="target">
             <connections>
                 <outlet property="alertView" destination="QsU-pO-gvB" id="zPP-NE-EMY"/>
+                <outlet property="btnCancel" destination="PYS-hu-tbN" id="NKn-Lb-izr"/>
+                <outlet property="btnDone" destination="bdd-Vi-XNC" id="J5V-Zh-Ld5"/>
                 <outlet property="lblAccident" destination="pUi-S0-aT3" id="pO4-4Y-6te"/>
                 <outlet property="lblKidnapping" destination="NaI-kA-Hu7" id="SzW-Hm-Qha"/>
                 <outlet property="lblLocation" destination="i6m-Bf-0wH" id="e5k-Fg-NAS"/>
@@ -38,7 +40,7 @@
                                         <constraint firstAttribute="height" constant="100" id="xbs-r7-JcI"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEXUAL ASSAULT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-YL-TSg">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEXUAL ASSAULT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-YL-TSg">
                                     <rect key="frame" x="10" y="108" width="140" height="42"/>
                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,7 +96,7 @@
                                         <constraint firstAttribute="height" constant="100" id="xTF-Hb-4ec"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCIDENT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pUi-S0-aT3">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCIDENT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pUi-S0-aT3">
                                     <rect key="frame" x="10" y="108" width="140" height="42"/>
                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -150,8 +152,8 @@
                                         <constraint firstAttribute="height" constant="100" id="dsc-gq-hV1"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSICAL ASSAULT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Ca-hD-yPS">
-                                    <rect key="frame" x="10" y="108" width="140" height="42"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSICAL ASSAULT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Ca-hD-yPS">
+                                    <rect key="frame" x="10" y="108" width="140" height="50"/>
                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -159,7 +161,7 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="1Ca-hD-yPS" secondAttribute="bottom" id="2Jd-pF-8VU"/>
+                                <constraint firstAttribute="bottom" secondItem="1Ca-hD-yPS" secondAttribute="bottom" constant="-8" id="2Jd-pF-8VU"/>
                                 <constraint firstItem="HM8-W4-tpe" firstAttribute="centerX" secondItem="6wl-u4-Ag4" secondAttribute="centerX" id="K7k-mB-KGi"/>
                                 <constraint firstItem="HM8-W4-tpe" firstAttribute="top" secondItem="6wl-u4-Ag4" secondAttribute="top" id="Mxy-Fh-cuz"/>
                                 <constraint firstItem="1Ca-hD-yPS" firstAttribute="leading" secondItem="6wl-u4-Ag4" secondAttribute="leading" constant="10" id="NMP-4e-d6f"/>
@@ -206,7 +208,7 @@
                                         <constraint firstAttribute="width" constant="100" id="5Gg-0E-y7u"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KIDNAPPING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NaI-kA-Hu7">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KIDNAPPING" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NaI-kA-Hu7">
                                     <rect key="frame" x="10" y="108" width="140" height="42"/>
                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

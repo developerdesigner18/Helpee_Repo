@@ -151,7 +151,7 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
                 {
                     if success == 1
                     {
-                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        if let resp = res.value(forKey: "data") as? NSDictionary
                         {
                             let model = UserModel()
                             model.initModel(attributeDict: resp)
@@ -210,7 +210,7 @@ class LoginVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
                 {
                     if success == 1
                     {
-                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        if let resp = res.value(forKey: "data") as? NSDictionary
                         {
                             let model = UserModel()
                             model.initModel(attributeDict: resp)

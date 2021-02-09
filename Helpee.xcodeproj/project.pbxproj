@@ -1003,7 +1003,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.helpe.e.e;
+				PRODUCT_BUNDLE_IDENTIFIER = com.help.e.e;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helpee/ThirdParty/KLCPopUp/Helpee-Bridging-Header.h";

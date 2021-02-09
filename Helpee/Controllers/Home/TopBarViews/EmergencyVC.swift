@@ -32,6 +32,10 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.btnCountry.setTitle(UserManager.shared.location, for: .normal)
+        
+        self.btnCountry.setImage(UIImage(named: self.locale(for: UserManager.shared.location)), for: .normal)
+        
         self.callGetEmergencyAPI()
         
         self.lblPolice.text = AppData.sharedInstance.getLocalizeString(str: "Police")
@@ -39,6 +43,7 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
         
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -82,11 +87,72 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
     //MARK:- API Call
     func callGetEmergencyAPI()
     {
-        AppData.sharedInstance.showLoader()
+        //AppData.sharedInstance.showLoader()
         
         let params = ["country":self.btnCountry.titleLabel?.text ?? ""] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + GET_EMERGENCY  , param: params) { (response, error) in
+            //AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let message = res.value(forKey: "number") as? NSDictionary
+                        {
+                            let model = emergencyModel(dict: message)
+                            self.btnPolice.setTitle(model.police_no, for: .normal)
+                            self.btnRescue.setTitle(model.rescue_no, for: .normal)
+                            
+                            self.callLanguageAPI()
+                            
+                            if let appLanguage = UserDefaults.standard.value(forKey: "appLanguage") as? String
+                            {
+                                if appLanguage == "en"
+                                {
+                                    AppData.sharedInstance.appLanguage = "en"
+                                }
+                                else{
+                                    AppData.sharedInstance.appLanguage = "fr"
+                                }
+                            }
+                            else{
+                                if model.language != AppData.sharedInstance.appLanguage
+                                {
+                                    if !AppData.sharedInstance.changeLangManual
+                                    {
+                                        UserDefaults.standard.setValue(model.language, forKey: "appLanguage")
+                                        AppData.sharedInstance.appLanguage = model.language
+                                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                        UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func callLanguageAPI()
+    {
+        //AppData.sharedInstance.showLoader()
+        
+        let params = ["userid":UserManager.shared.userid,
+                      "language":AppData.sharedInstance.appLanguage] as NSDictionary
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + LANGUAGE  , param: params) { (response, error) in
             AppData.sharedInstance.dismissLoader()
             print(response ?? "")
             
@@ -96,13 +162,7 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
                 {
                     if success == 1
                     {
-                        if let message = res.value(forKey: "message") as? NSDictionary
-                        {
-                            let model = emergencyModel(dict: message)
-                            self.btnPolice.setTitle(model.police_no, for: .normal)
-                            self.btnRescue.setTitle(model.rescue_no, for: .normal)
-                        }
-                        
+                        print("Done Language :=> ",res)
                     }
                     else{
                         if let message = res.value(forKey: "message") as? String
@@ -163,9 +223,9 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
                             addressString = addressString + pm.locality! + ", "
                         }*/
                         if pm.country != nil {
-                            self.btnCountry.setTitle(pm.country, for: .normal)
-                            
-                            self.btnCountry.setImage(UIImage(named: self.locale(for: pm.country ?? "")), for: .normal)
+//                            self.btnCountry.setTitle(pm.country, for: .normal)
+//
+//                            self.btnCountry.setImage(UIImage(named: self.locale(for: pm.country ?? "")), for: .normal)
                             //addressString = addressString + pm.country! + ", "
                         }
                         /*if pm.postalCode != nil {

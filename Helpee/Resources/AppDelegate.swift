@@ -69,23 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     //MARK: - UIApplicationDelegate Methods
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let userInfo = notification.request.content.userInfo
-        
-        // Print message ID.
-        //    if let messageID = userInfo[gcmMessageIDKey]
-        //    {
-        //      print("Message ID: \(messageID)")
-        //    }
-        
-        // Print full message.
-        
-        print(userInfo)
-        
-        //    let code = String.getString(message: userInfo["code"])
-        guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
-        guard let alert = aps["alert"] as? String else { return }
-        //    guard let body = alert["body"] as? String else { return }
-        
+        //let userInfo = notification.request.content.userInfo
         completionHandler([.alert,.badge,.sound])
     }
     

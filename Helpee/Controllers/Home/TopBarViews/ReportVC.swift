@@ -13,6 +13,10 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
 
     var popup = KLCPopup()
     var locationManager = CLLocationManager()
+    var country = String()
+    
+    @IBOutlet weak var btnDone: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
     
     @IBOutlet weak var lblSexual: UILabel!
     @IBOutlet weak var lblAccident: UILabel!
@@ -39,6 +43,9 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.btnDone.setTitle(AppData.sharedInstance.getLocalizeString(str: "Alert"), for: .normal)
+        self.btnCancel.setTitle(AppData.sharedInstance.getLocalizeString(str: "Cancel"), for: .normal)
+        
         self.lblSexual.text = AppData.sharedInstance.getLocalizeString(str: "SEXUAL ASSAULT")
         self.lblAccident.text = AppData.sharedInstance.getLocalizeString(str: "ACCIDENT")
         self.lblKidnapping.text = AppData.sharedInstance.getLocalizeString(str: "KIDNAPPING")
@@ -46,12 +53,19 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
         
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.startUpdatingLocation()
+        self.locationManager.startMonitoringSignificantLocationChanges()
         
         self.alertView.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.locationManager.stopUpdatingLocation()
+        self.locationManager.stopMonitoringSignificantLocationChanges()
     }
     
     // MARK: - Location Manager Delegate
@@ -84,7 +98,7 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
             {(placemarks, error) in
                 if (error != nil)
                 {
-                    //print("reverse geodcode fail: \(error!.localizedDescription)")
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
                 
                 if placemarks != nil
@@ -104,6 +118,7 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
                             addressString = addressString + pm.locality! + ", "
                         }
                         if pm.country != nil {
+                            self.country = pm.country!
                             addressString = addressString + pm.country! + ", "
                         }
                         if pm.postalCode != nil {
@@ -124,6 +139,7 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
         
         let params = ["userid":UserManager.shared.userid,
                       "alerttypeid":self.alertType,
+                      "country":self.country,
                       "location":self.lblLocation.text ?? "",
                       "latitude":self.latitude,
                       "longitude":self.longitude] as NSDictionary
@@ -141,13 +157,27 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
                         self.popup.dismiss(true)
                         if let message = res.value(forKey: "message") as? String
                         {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertController.Style.alert)
+                            let action1 = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { (dd) -> Void in
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                
+                                UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController")
+                            }
+                            alert.addAction(action1)
+                            self.present(alert, animated: true, completion: nil)
                         }
                     }
                     else{
                         if let message = res.value(forKey: "message") as? String
                         {
-                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                            let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertController.Style.alert)
+                            let action1 = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { (dd) -> Void in
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                
+                                UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateViewController(withIdentifier: "RAMAnimatedTabBarController")
+                            }
+                            alert.addAction(action1)
+                            self.present(alert, animated: true, completion: nil)
                         }
                     }
                 }

@@ -152,12 +152,13 @@ class SettingsVC: UIViewController {
                 {
                     if success == 1
                     {
-                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        if let resp = res.value(forKey: "data") as? NSDictionary
                         {
                             let model = UserModel()
                             model.initModel(attributeDict: resp)
                             UserManager.shared = model
                             UserManager.saveUserData()
+                            UserManager.getUserData()
                             
                             self.txtFName.text = UserManager.shared.firstname
                             self.txtLName.text = UserManager.shared.lastname
@@ -229,7 +230,7 @@ class SettingsVC: UIViewController {
         
         let take = UIAlertAction(title: AppData.sharedInstance.getLocalizeString(str: "English"), style: UIAlertAction.Style.default) { (action) in
             UserDefaults.standard.setValue("en", forKey: "appLanguage")
-            
+            AppData.sharedInstance.changeLangManual = true
             AppData.sharedInstance.appLanguage = "en"
             
             self.callLanguageAPI(language: "en")
@@ -243,7 +244,7 @@ class SettingsVC: UIViewController {
         }
         let pick = UIAlertAction(title: AppData.sharedInstance.getLocalizeString(str: "French"), style: UIAlertAction.Style.default) { (action) in
             UserDefaults.standard.setValue("fr", forKey: "appLanguage")
-            
+            AppData.sharedInstance.changeLangManual = true
             AppData.sharedInstance.appLanguage = "fr"
             
             self.callLanguageAPI(language: "fr")

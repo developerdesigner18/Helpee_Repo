@@ -9,8 +9,18 @@ import UIKit
 import XLPagerTabStrip
 import AnimatedField
 
-class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate {
+class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    var popup = KLCPopup()
+    var arrCountry = NSMutableArray()
+    var arrSearchResult = NSArray()
+    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var lblTopTitle: UILabel!
+    @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var btnDone: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
+    
     @IBOutlet weak var txtFirstName: AnimatedField!
     @IBOutlet weak var txtLastName: AnimatedField!
     @IBOutlet weak var txtPass: AnimatedField!
@@ -21,6 +31,7 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     @IBOutlet weak var btnRegistration: UIButton!
     var isValida = false
     var type = "1"
+    var isSearch = 0
     
     var itemInfo: IndicatorInfo = "View"
     
@@ -36,6 +47,21 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.searchBar.delegate = self
+        
+        self.lblTopTitle.text = AppData.sharedInstance.getLocalizeString(str: "Select Country")
+        self.btnDone.setTitle(AppData.sharedInstance.getLocalizeString(str: "Done"), for: .normal)
+        self.btnCancel.setTitle(AppData.sharedInstance.getLocalizeString(str: "Cancel"), for: .normal)
+        
+        self.callGetEmergencyAPI()
+        
+        self.tblView.delegate = self
+        self.tblView.dataSource = self
+        self.tblView.reloadData()
+        
+        self.alertView.isHidden = true
+        
         self.configureFieldsValidation()
         self.localization()
     }
@@ -46,6 +72,11 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         self.btnEmail.setTitle(AppData.sharedInstance.getLocalizeString(str: "Email"), for: .normal)
         self.btnPhoneNo.setTitle(AppData.sharedInstance.getLocalizeString(str: "Phone Number"), for: .normal)
         self.btnRegistration.setTitle(AppData.sharedInstance.getLocalizeString(str: "REGISTRATION"), for: .normal)
+        if #available(iOS 13.0, *) {
+            self.searchBar.searchTextField.placeholder = AppData.sharedInstance.getLocalizeString(str: "Country")
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func configureFieldsValidation()
@@ -62,7 +93,7 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         txtFirstName.format = format
         txtFirstName.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter first name")
         txtFirstName.dataSource = self
-        txtFirstName.delegate = self    
+        txtFirstName.delegate = self
         txtFirstName.tag = 0
         
         txtLastName.format = format
@@ -88,11 +119,73 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         txtEmail.tag = 3
         
         txtLocation.format = format
-        txtLocation.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter location")
+        txtLocation.placeholder = AppData.sharedInstance.getLocalizeString(str: "Enter country")
         txtLocation.dataSource = self
         txtLocation.delegate = self
         txtLocation.tag = 4
         
+    }
+    
+    // MARK: - search bar delegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.isSearch = 0
+            self.tblView.reloadData()
+        }else {
+            filterTableView(ind: searchBar.selectedScopeButtonIndex, text: searchText)
+        }
+    }
+    
+    func filterTableView(ind:Int,text:String) {
+//        filter({ (mod) -> Bool in
+//            return mod.imageName.lowercased().contains(text.lowercased())
+//        })
+        self.arrSearchResult = NSArray()
+        self.arrSearchResult = self.arrCountry.filter { (model) -> Bool in
+            return (model as! emergencyModel).english_name.contains(text)
+        } as NSArray
+        
+        print(self.arrSearchResult)
+        self.isSearch = 1
+        self.tblView.reloadData()
+    }
+    
+    //MARK:- API Call
+    func callGetEmergencyAPI()
+    {
+        //AppData.sharedInstance.showLoader()
+        
+        let params = ["country":""] as NSDictionary
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + GET_EMERGENCY  , param: params) { (response, error) in
+            AppData.sharedInstance.dismissLoader()
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let message = res.value(forKey: "number") as? NSArray
+                        {
+                            for dict in message
+                            {
+                                let model = emergencyModel(dict: dict as! NSDictionary)
+                                self.arrCountry.add(model)
+                            }
+                            self.tblView.reloadData()
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func callRegistrationAPI()
@@ -145,6 +238,7 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
                             {
                                 OtpVC.code = (message as NSNumber).stringValue
                                 OtpVC.email = self.txtEmail.text ?? ""
+                                OtpVC.location = self.txtLocation.text ?? ""
                                 OtpVC.type = self.type
                                 self.navigationController?.pushViewController(OtpVC, animated: true)
                             }
@@ -191,7 +285,7 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         }
         else if self.txtLocation.text == ""
         {
-            txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter location"))
+            txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter country"))
         }
         else{
             return true
@@ -200,6 +294,24 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     }
     
     //MARK:- btn actions
+    @IBAction func btnCountry(_ sender: Any) {
+        self.alertView.isHidden = false
+        popup = KLCPopup(contentView: self.alertView, showType: .bounceIn, dismissType: .bounceOut, maskType: .dimmed, dismissOnBackgroundTouch: false, dismissOnContentTouch: false)
+        popup.show()
+        popup.didFinishDismissingCompletion = {
+           // self.ListNoteWebService()
+        }
+    }
+    
+    @IBAction func btnDone(_ sender: Any) {
+        self.txtLocation.text = self.arrCountry[0] as! String
+        self.popup.dismiss(true)
+    }
+    
+    @IBAction func btnCancel(_ sender: Any) {
+        self.popup.dismiss(true)
+    }
+    
     @IBAction func btnEmail(_ sender: Any) {
         self.type = "1"
         self.btnEmail.setImage(UIImage(named: "radio_select"), for: .normal)
@@ -221,7 +333,20 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
     @IBAction func btnRegistration(_ sender: Any) {
         if self.validation()
         {
-            self.callRegistrationAPI()
+            let txt = self.txtEmail.text ?? ""
+            if self.type == "2"
+            {
+                if txt.contains("+")
+                {
+                    self.callRegistrationAPI()
+                }
+                else{
+                    AppData.sharedInstance.showAlert(title: "", message: AppData.sharedInstance.getLocalizeString(str: "Please enter country code"), viewController: self)
+                }
+            }
+            else{
+                self.callRegistrationAPI()
+            }
         }
         else{
             
@@ -279,7 +404,7 @@ extension RegistrationVC: AnimatedFieldDelegate {
         {
             if animatedField.text == ""
             {
-                txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter location"))
+                txtLocation.showAlert(AppData.sharedInstance.getLocalizeString(str: "Please enter country"))
             }
         }
         else{
@@ -333,5 +458,64 @@ extension RegistrationVC: AnimatedFieldDataSource {
             return AppData.sharedInstance.getLocalizeString(str: "Email invalid! Please check again..")
         }
         return nil
+    }
+}
+extension RegistrationVC : UITableViewDelegate, UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.isSearch == 1
+        {
+            return self.arrSearchResult.count
+        }
+        else{
+            return self.arrCountry.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+                return UITableViewCell(style: .default, reuseIdentifier: "cell")
+            }
+            return cell
+        }()
+        var model = emergencyModel()
+        if self.isSearch == 1
+        {
+            model = self.arrSearchResult[indexPath.row] as! emergencyModel
+        }
+        else{
+            model = self.arrCountry[indexPath.row] as! emergencyModel
+        }
+        
+        if AppData.sharedInstance.appLanguage == "en"
+        {
+            cell.textLabel?.text = model.english_name
+        }
+        else{
+            cell.textLabel?.text = model.french_name
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var model = emergencyModel()
+        if self.isSearch == 1
+        {
+            model = self.arrSearchResult[indexPath.row] as! emergencyModel
+        }
+        else{
+            model = self.arrCountry[indexPath.row] as! emergencyModel
+        }
+        
+        if AppData.sharedInstance.appLanguage == "en"
+        {
+            self.txtLocation.text = model.english_name
+        }
+        else{
+            self.txtLocation.text = model.french_name
+        }
+        
+        self.popup.dismiss(true)
     }
 }

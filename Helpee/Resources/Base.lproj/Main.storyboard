@@ -295,6 +295,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnResend" destination="BoM-IK-hm5" id="SI7-6R-y6u"/>
+                        <outlet property="btnSubmit" destination="a4J-wQ-JcE" id="gor-bA-gvH"/>
+                        <outlet property="lblSentTo" destination="Ebi-kE-Htf" id="ZXo-AI-STC"/>
+                        <outlet property="lblVerification" destination="lsW-pm-dVo" id="gXf-QN-4GX"/>
                         <outlet property="pinView" destination="bdg-9X-2o2" id="uBQ-Tq-aqh"/>
                     </connections>
                 </viewController>

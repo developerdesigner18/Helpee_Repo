@@ -10,15 +10,56 @@ import SVPinView
 
 class OtpVC: UIViewController {
 
+    @IBOutlet weak var lblVerification: UILabel!
+    @IBOutlet weak var lblSentTo: UILabel!
+    @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var pinView: SVPinView!
+    @IBOutlet weak var btnSubmit: UIButton!
     var code = String()
     var email = String()
+    var location = String()
     var type = String()
     
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.callGetEmergencyAPI()
         self.configurePinView()
+    }
+    
+    //MARK:- API Call
+    func callGetEmergencyAPI()
+    {
+        let params = ["country":self.location] as NSDictionary
+        
+        APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + GET_EMERGENCY  , param: params) { (response, error) in
+            print(response ?? "")
+            
+            if let res = response as? NSDictionary
+            {
+                if let success = res.value(forKey: "success") as? Int
+                {
+                    if success == 1
+                    {
+                        if let message = res.value(forKey: "number") as? NSDictionary
+                        {
+                            let model = emergencyModel(dict: message)
+                            AppData.sharedInstance.appLanguage = model.language
+                            self.lblVerification.text = AppData.sharedInstance.getLocalizeString(str: "Verification Code")
+                            self.lblSentTo.text = "\(AppData.sharedInstance.getLocalizeString(str: "Sent to")) \(self.email)"
+                            self.btnResend.setTitle(AppData.sharedInstance.getLocalizeString(str: "RESEND OTP"), for: .normal)
+                            self.btnSubmit.setTitle(AppData.sharedInstance.getLocalizeString(str: "SUBMIT"), for: .normal)
+                        }
+                    }
+                    else{
+                        if let message = res.value(forKey: "message") as? String
+                        {
+                            AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     //MARK:- config OTP View
@@ -95,7 +136,7 @@ class OtpVC: UIViewController {
                 {
                     if success == 1
                     {
-                        if let resp = res.value(forKey: "message") as? NSDictionary
+                        if let resp = res.value(forKey: "data") as? NSDictionary
                         {
                             print(resp)
                             

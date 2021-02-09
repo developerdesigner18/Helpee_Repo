@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NearbyVC" customModule="Helpee" customModuleProvider="target">
             <connections>
+                <outlet property="noDataLbl" destination="iYh-f1-9IT" id="rdc-Sd-7tl"/>
                 <outlet property="tblView" destination="G7c-MD-dCb" id="u2x-CU-g6Z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,14 +25,27 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby Alerts not found..!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYh-f1-9IT">
+                    <rect key="frame" x="0.0" y="313.5" width="375" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="R1w-eP-Q2M"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="iYh-f1-9IT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="67i-6M-xEW"/>
+                <constraint firstItem="iYh-f1-9IT" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="9IJ-5F-EhR"/>
                 <constraint firstItem="G7c-MD-dCb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="BOY-L1-s4J"/>
                 <constraint firstItem="G7c-MD-dCb" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="F3X-aO-Uz7"/>
                 <constraint firstItem="G7c-MD-dCb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ltb-vJ-cD1"/>
+                <constraint firstItem="iYh-f1-9IT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yrz-we-bMV"/>
                 <constraint firstItem="G7c-MD-dCb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="biB-2U-bSk"/>
+                <constraint firstItem="iYh-f1-9IT" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="crt-oG-Mdu"/>
             </constraints>
             <point key="canvasLocation" x="140" y="86.806596701649184"/>
         </view>

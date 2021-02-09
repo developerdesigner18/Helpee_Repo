@@ -57,6 +57,9 @@ class emergencyModel: NSObject {
     
     var police_no = String()
     var rescue_no = String()
+    var english_name = String()
+    var french_name = String()
+    var language = String()
     
     override init() {
         
@@ -71,6 +74,18 @@ class emergencyModel: NSObject {
         if let created_at = dict.value(forKey: "rescue_no") as? String
         {
             self.rescue_no = created_at
+        }
+        if let location = dict.value(forKey: "english_name") as? String
+        {
+            self.english_name = location
+        }
+        if let created_at = dict.value(forKey: "french_name") as? String
+        {
+            self.french_name = created_at
+        }
+        if let language = dict.value(forKey: "language") as? String
+        {
+            self.language = language.lowercased()
         }
     }
 }

@@ -14,6 +14,7 @@ class AppData: NSObject {
     var arrCardDetail = NSMutableArray()
     var arrRentDetail = NSMutableArray()
     var appLanguage = String()
+    var changeLangManual = false
     var fcm_token = String()
     
     class var sharedInstance : AppData {
