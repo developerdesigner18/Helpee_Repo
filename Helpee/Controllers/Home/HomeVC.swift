@@ -60,7 +60,7 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
     {
         //AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
+        let params = ["id":UserManager.shared.userid,
                       "latitude": self.latitude,
                       "longitude": self.longitude] as NSDictionary
         
@@ -92,7 +92,7 @@ class HomeVC: ButtonBarPagerTabStripViewController,CLLocationManagerDelegate {
     {
         //AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
+        let params = ["id":UserManager.shared.userid,
                       "devicetoken":AppData.sharedInstance.fcm_token] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + SAVE_TOKEN  , param: params) { (response, error) in

@@ -196,8 +196,8 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         {
             params = [
                 "type": "1",
-                "firstname": self.txtFirstName.text ?? "",
-                "lastname": self.txtLastName.text ?? "",
+                "first_name": self.txtFirstName.text ?? "",
+                "last_name": self.txtLastName.text ?? "",
                 "password": self.txtPass.text ?? "",
                 "location": self.txtLocation.text ?? "",
                 "email": self.txtEmail.text ?? ""
@@ -206,8 +206,8 @@ class RegistrationVC: UIViewController,IndicatorInfoProvider,UITextFieldDelegate
         else{
             params = [
                 "type": "2",
-                "firstname": self.txtFirstName.text ?? "",
-                "lastname": self.txtLastName.text ?? "",
+                "first_name": self.txtFirstName.text ?? "",
+                "last_name": self.txtLastName.text ?? "",
                 "password": self.txtPass.text ?? "",
                 "location": self.txtLocation.text ?? "",
                 "mobile": self.txtEmail.text ?? ""

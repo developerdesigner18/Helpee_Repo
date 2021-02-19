@@ -136,9 +136,9 @@ class SettingsVC: UIViewController {
     {
         AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
-                      "firstname":self.txtFName.text ?? "",
-                      "lastname":self.txtLName.text ?? "",
+        let params = ["id":UserManager.shared.userid,
+                      "first_name":self.txtFName.text ?? "",
+                      "last_name":self.txtLName.text ?? "",
                       "email":self.txtEmail.text ?? "",
                       "location":self.txtLocation.text ?? ""] as NSDictionary
         
@@ -184,7 +184,7 @@ class SettingsVC: UIViewController {
     {
         AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
+        let params = ["id":UserManager.shared.userid,
                       "language":language] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + LANGUAGE  , param: params) { (response, error) in

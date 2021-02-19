@@ -62,7 +62,7 @@ class UserModel: NSObject, NSCoding {
         if let val = attributeDict.value(forKey: "token") as? String {
             self.token = val
         }
-        if let val = attributeDict.value(forKey: "userid") as? NSNumber {
+        if let val = attributeDict.value(forKey: "id") as? NSNumber {
             self.userid = val.stringValue
         }
         if let val = attributeDict.value(forKey: "mobile") as? String {
@@ -71,7 +71,6 @@ class UserModel: NSObject, NSCoding {
     }
     
     init(email : String,firstname : String,lastname : String,location : String,token : String,userid : String,mobile : String) {
-        
         self.email = email
         self.firstname = firstname
         self.lastname = lastname
@@ -79,7 +78,6 @@ class UserModel: NSObject, NSCoding {
         self.token = token
         self.userid = userid
         self.mobile = mobile
-        
     }
     
     required convenience init?(coder decoder: NSCoder) {
@@ -112,7 +110,7 @@ class UserModel: NSObject, NSCoding {
         {
             Token = token
         }
-        if let userid = decoder.decodeObject(forKey: "userid") as? String
+        if let userid = decoder.decodeObject(forKey: "id") as? String
         {
             Userid = userid
         }
@@ -132,14 +130,12 @@ class UserModel: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        
         aCoder.encode(self.email, forKey: "email")
         aCoder.encode(self.firstname, forKey: "firstname")
         aCoder.encode(self.lastname, forKey: "lastname")
         aCoder.encode(self.location, forKey: "location")
         aCoder.encode(self.token, forKey: "token")
-        aCoder.encode(self.userid, forKey: "userid")
+        aCoder.encode(self.userid, forKey: "id")
         aCoder.encode(self.mobile, forKey: "mobile")
-        
     }
 }

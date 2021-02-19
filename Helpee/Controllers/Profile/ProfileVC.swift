@@ -95,7 +95,7 @@ class ProfileVC: UIViewController {
     {
         AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid] as NSDictionary
+        let params = ["id":UserManager.shared.userid] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + DELETE_ACC  , param: params) { (response, error) in
             AppData.sharedInstance.dismissLoader()

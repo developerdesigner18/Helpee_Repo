@@ -149,7 +149,7 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
     {
         //AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
+        let params = ["id":UserManager.shared.userid,
                       "language":AppData.sharedInstance.appLanguage] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + LANGUAGE  , param: params) { (response, error) in

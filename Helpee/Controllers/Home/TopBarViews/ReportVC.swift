@@ -137,7 +137,7 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
     {
         AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid,
+        let params = ["user_id":UserManager.shared.userid,
                       "alerttypeid":self.alertType,
                       "country":self.country,
                       "location":self.lblLocation.text ?? "",

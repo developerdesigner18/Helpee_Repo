@@ -41,7 +41,7 @@ class NearbyVC: UIViewController,IndicatorInfoProvider {
     {
         AppData.sharedInstance.showLoader()
         
-        let params = ["userid":UserManager.shared.userid] as NSDictionary
+        let params = ["user_id":UserManager.shared.userid] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + GET_INCEDENTS  , param: params) { (response, error) in
             AppData.sharedInstance.dismissLoader()
