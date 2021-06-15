@@ -14,6 +14,10 @@ class APIUtilities: NSObject {
     
     //MARK:- Alamofire methods
     
+    func POSTTHEAPI(str : String) {
+        
+    }
+    
     //MARK:- GET
     func GetAPICallWith(url:String, completionHandler:@escaping (AnyObject?, NSError?)->()) ->()
     {
@@ -43,7 +47,7 @@ class APIUtilities: NSObject {
                     print(response.result.error ?? "")
                     completionHandler(nil, response.result.error! as NSError)
                 }
-        }
+            }
     }
     
     //MARK:- POST

@@ -48,8 +48,8 @@ public struct ButtonBarPagerTabStripSettings {
         public var buttonBarLeftContentInset: CGFloat?
         public var buttonBarRightContentInset: CGFloat?
 
-        public var selectedBarBackgroundColor = UIColor(red: 241/255, green: 193/255, blue: 14/255, alpha: 1.0)
-        public var selectedBarHeight: CGFloat = 1.5
+        public var selectedBarBackgroundColor = UIColor.black
+        public var selectedBarHeight: CGFloat = 5
         public var selectedBarVerticalAlignment: SelectedBarVerticalAlignment = .bottom
 
         public var buttonBarItemBackgroundColor: UIColor?

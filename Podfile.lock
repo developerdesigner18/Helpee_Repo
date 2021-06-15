@@ -114,7 +114,7 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - GTMSessionFetcher/Full (1.5.0):
     - GTMSessionFetcher/Core (= 1.5.0)
-  - IQKeyboardManagerSwift (6.5.7)
+  - IQKeyboardManagerSwift (6.5.6)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -139,7 +139,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Messaging
   - GoogleSignIn
-  - IQKeyboardManagerSwift (from `https://github.com/hackiftekhar/IQKeyboardManager.git`)
+  - IQKeyboardManagerSwift
   - ReachabilitySwift (~> 3)
   - SainiUtils
   - SDWebImage
@@ -170,6 +170,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - nanopb
     - PromisesObjC
     - ReachabilitySwift
@@ -180,8 +181,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AnimatedField:
     :git: https://github.com/alberdev/AnimatedField.git
-  IQKeyboardManagerSwift:
-    :git: https://github.com/hackiftekhar/IQKeyboardManager.git
   SVPinView:
     :git: https://github.com/xornorik/SVPinView.git
   XLPagerTabStrip:
@@ -191,9 +190,6 @@ CHECKOUT OPTIONS:
   AnimatedField:
     :commit: 09a1dfcd381d0bab1c61f2269e316a17bdf3e745
     :git: https://github.com/alberdev/AnimatedField.git
-  IQKeyboardManagerSwift:
-    :commit: 641ef9f19960a8ecdf22bc89290d0ba56ed37826
-    :git: https://github.com/hackiftekhar/IQKeyboardManager.git
   SVPinView:
     :commit: 998aeaa4e3135656f106cebc5d3427a5d0f62c1d
     :git: https://github.com/xornorik/SVPinView.git
@@ -224,7 +220,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  IQKeyboardManagerSwift: 7d651cf47a4fb6a4d721e16ef15ec52cef6d57ce
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
@@ -234,6 +230,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   XLPagerTabStrip: 6af5fe7b41c21f371860df6bac2ddf12818c5103
 
-PODFILE CHECKSUM: 8777f469057e5223a31f3b55c9ae4b9f78fb5e99
+PODFILE CHECKSUM: a4cac5310bdb8da7ae29c05ce495624eb77eae5e
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

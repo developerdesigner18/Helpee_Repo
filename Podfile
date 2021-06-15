@@ -11,7 +11,7 @@ target 'Helpee' do
   pod 'AnimatedField', :git => 'https://github.com/alberdev/AnimatedField.git'
   pod 'SDWebImage'
   pod 'Alamofire', '~> 4.4'
-  pod 'IQKeyboardManagerSwift', :git => 'https://github.com/hackiftekhar/IQKeyboardManager.git'
+  pod 'IQKeyboardManagerSwift'
   pod 'ReachabilitySwift', '~> 3'
   pod 'FacebookCore'
   pod 'FacebookLogin'

@@ -47,10 +47,10 @@
 	<string>1</string>
 	<key>FacebookAppID</key>
 	<string>224332829264246</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Helpee needs your location to find nearby rides.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

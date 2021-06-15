@@ -50,10 +50,10 @@ class UserModel: NSObject, NSCoding {
         if let val = attributeDict.value(forKey: "email") as? String {
             self.email = val
         }
-        if let val = attributeDict.value(forKey: "firstname") as? String {
+        if let val = attributeDict.value(forKey: "first_name") as? String {
             self.firstname = val
         }
-        if let val = attributeDict.value(forKey: "lastname") as? String {
+        if let val = attributeDict.value(forKey: "last_name") as? String {
             self.lastname = val
         }
         if let val = attributeDict.value(forKey: "location") as? String {
@@ -94,11 +94,11 @@ class UserModel: NSObject, NSCoding {
         {
             Email = email
         }
-        if let firstname = decoder.decodeObject(forKey: "firstname") as? String
+        if let firstname = decoder.decodeObject(forKey: "first_name") as? String
         {
             Firstname = firstname
         }
-        if let lastname = decoder.decodeObject(forKey: "lastname") as? String
+        if let lastname = decoder.decodeObject(forKey: "last_name") as? String
         {
             Lastname = lastname
         }
@@ -131,8 +131,8 @@ class UserModel: NSObject, NSCoding {
     
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.email, forKey: "email")
-        aCoder.encode(self.firstname, forKey: "firstname")
-        aCoder.encode(self.lastname, forKey: "lastname")
+        aCoder.encode(self.firstname, forKey: "first_name")
+        aCoder.encode(self.lastname, forKey: "last_name")
         aCoder.encode(self.location, forKey: "location")
         aCoder.encode(self.token, forKey: "token")
         aCoder.encode(self.userid, forKey: "id")

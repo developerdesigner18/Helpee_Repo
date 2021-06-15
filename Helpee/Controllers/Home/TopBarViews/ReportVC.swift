@@ -28,6 +28,7 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
     var alertType = ""
     var latitude = ""
     var longitude = ""
+    var dateTime = ""
     
     var itemInfo: IndicatorInfo = "View"
     
@@ -61,6 +62,13 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
         self.locationManager.startMonitoringSignificantLocationChanges()
         
         self.alertView.isHidden = true
+        
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = df.string(from: date)
+        dateTime = dateString
+        print(dateTime)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -142,7 +150,8 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
                       "country":self.country,
                       "location":self.lblLocation.text ?? "",
                       "latitude":self.latitude,
-                      "longitude":self.longitude] as NSDictionary
+                      "longitude":self.longitude,
+                      "date_time":self.dateTime] as NSDictionary
         
         APIUtilities.sharedInstance.POSTAPICallWith(url: BASE_URL + CREATE_ALERT  , param: params) { (response, error) in
             AppData.sharedInstance.dismissLoader()
@@ -233,3 +242,4 @@ class ReportVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDelegate
         return itemInfo
     }
 }
+

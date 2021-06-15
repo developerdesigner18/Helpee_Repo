@@ -164,7 +164,7 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
                     {
                         print("Done Language :=> ",res)
                     }
-                    else{
+                    else {
                         if let message = res.value(forKey: "message") as? String
                         {
                             AppData.sharedInstance.showAlert(title: "", message: message, viewController: self)
@@ -172,13 +172,12 @@ class EmergencyVC: UIViewController,IndicatorInfoProvider,CLLocationManagerDeleg
                     }
                 }
             }
-            
         }
     }
     
     // MARK: - Location Manager Delegate
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        print("didFailWithError: \(error)")
+    private func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        print("didFailWithError: \(String(describing: error))")
         let errorAlert = UIAlertView(title: "Error", message: "Failed to Get Your Location", delegate: nil, cancelButtonTitle: "OK")
         errorAlert.show()
     }
